@@ -4,8 +4,6 @@
 
 ```json
 {
-  "OrderID": "12345",
-  "OrderDate": "2023-10-29",
   "TotalAmount": 499.99,
   "PaymentMethod": "CreditCard",
   "ShipmentMethod": "Express",
@@ -15,7 +13,7 @@
     "Phone": "+1234567890"
   },
   "OrderAddress": {
-    "Street": "123 Main St",
+    "Street": "vägvägen 1",
     "City": "Stockholm",
     "PostalCode": "12345",
     "Country": "Sweden"
@@ -23,19 +21,19 @@
   "OrderProducts": [
     {
       "ProductID": "001",
-      "ProductName": "Laptop",
+      "ProductName": "Jacket",
       "Quantity": 1,
       "Price": 399.99
     },
     {
       "ProductID": "002",
-      "ProductName": "Mouse",
+      "ProductName": "Shoes",
       "Quantity": 1,
       "Price": 29.99
     },
     {
       "ProductID": "003",
-      "ProductName": "Keyboard",
+      "ProductName": "Sweater",
       "Quantity": 1,
       "Price": 69.99
     }
