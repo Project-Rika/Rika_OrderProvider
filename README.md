@@ -10,13 +10,11 @@
   "PaymentMethod": "CreditCard",
   "ShipmentMethod": "Express",
   "OrderCustomer": {
-    "CustomerID": "67890",
     "Name": "John Doe",
     "Email": "john.doe@example.com",
     "Phone": "+1234567890"
   },
   "OrderAddress": {
-    "AddressID": "54321",
     "Street": "123 Main St",
     "City": "Stockholm",
     "PostalCode": "12345",
