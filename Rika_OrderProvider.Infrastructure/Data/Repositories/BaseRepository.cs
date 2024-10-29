@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rika_OrderProvider.Infrastructure.Data.Repositories
 {
-    internal class Dummy
+    internal class BaseRepository
     {
     }
 }
