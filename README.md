@@ -2,6 +2,7 @@
 
 ###Exempel på ett JSON-objekt och vilka parametrar som ska finnas
 
+```json
 {
   "OrderID": "12345",
   "OrderDate": "2023-10-29",
@@ -9,11 +10,13 @@
   "PaymentMethod": "CreditCard",
   "ShipmentMethod": "Express",
   "OrderCustomer": {
+    "CustomerID": "67890",
     "Name": "John Doe",
     "Email": "john.doe@example.com",
     "Phone": "+1234567890"
   },
   "OrderAddress": {
+    "AddressID": "54321",
     "Street": "123 Main St",
     "City": "Stockholm",
     "PostalCode": "12345",
