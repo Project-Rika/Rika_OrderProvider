@@ -26,7 +26,7 @@ public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContex
 
         modelBuilder.Entity<OrderEntity>()
             .HasMany(o => o.OrderProducts)
-            .WithOne()
-            .HasForeignKey(p => p.ProductId);
+            .WithOne(p => p.Order)
+            .HasForeignKey(p => p.OrderId);
     }
 }
