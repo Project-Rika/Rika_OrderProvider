@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Rika_OrderProvider.Infrastructure.Data.Contexts;
+using Rika_OrderProvider.Infrastructure.Data.Entities;
+namespace Rika_OrderProvider.Infrastructure.Data.Repositories;
 
-namespace Rika_OrderProvider.Infrastructure.Data.Repositories
+public class OrderProductRepository(OrderDbContext dbContext) : BaseRepository<OrderProductEntity>(dbContext)
 {
-    internal class OrderProductRepository
-    {
-    }
+
 }

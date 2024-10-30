@@ -1,4 +1,5 @@
-﻿using Rika_OrderProvider.Infrastructure.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using Rika_OrderProvider.Infrastructure.Helpers;
 using Rika_OrderProvider.Infrastructure.Models;
 
 namespace Rika_OrderProvider.Infrastructure.Services.Interfaces;

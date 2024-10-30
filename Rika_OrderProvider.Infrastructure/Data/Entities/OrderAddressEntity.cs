@@ -11,5 +11,4 @@ public class OrderAddressEntity
     public string PostalCode { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
     public ICollection<OrderEntity> Orders { get; set; } = [];
-
 }

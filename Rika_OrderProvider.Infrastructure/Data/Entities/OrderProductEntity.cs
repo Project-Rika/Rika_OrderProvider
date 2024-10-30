@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Rika_OrderProvider.Infrastructure.Data.Entities;
 
@@ -11,4 +12,8 @@ public class OrderProductEntity
     public string Quantity { get; set; } = string.Empty;
     public string Color { get; set; } = string.Empty;
     public string Size { get; set; } = string.Empty;
+
+    public string OrderId { get; set; } = null!;
+    [ForeignKey("OrderId")]
+    public OrderEntity Order { get; set; } = null!;
 }
