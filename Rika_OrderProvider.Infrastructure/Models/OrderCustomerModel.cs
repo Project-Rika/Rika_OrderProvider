@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Rika_OrderProvider.Infrastructure.Models
+
+namespace Rika_OrderProvider.Infrastructure.Models;
+
+public class OrderCustomerModel
 {
-    internal class OrderCustomerModel
-    {
-    }
+    [Required]
+    public string CustomerName { get; set; } = null!;
+
+    [Required]
+    public string CustomerEmail { get; set; } = null!;
+
+    [Required]
+    public string CustomerPhone { get; set; } = null!;
 }

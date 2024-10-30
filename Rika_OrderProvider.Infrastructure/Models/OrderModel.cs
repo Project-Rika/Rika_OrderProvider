@@ -1,12 +1,23 @@
-﻿using System;
+﻿using Rika_OrderProvider.Infrastructure.Data.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace Rika_OrderProvider.Infrastructure.Models
+namespace Rika_OrderProvider.Infrastructure.Models;
+
+public class OrderModel
 {
-    internal class OrderModel
-    {
-    }
+    [Required]
+    public string TotalAmount { get; set; } = null!;
+
+    [Required]
+    public string PaymnetMehod { get; set; } = null!;
+
+    [Required]
+    public string ShipmentMethod { get; set; } = null!;
+
+    public OrderCustomerModel OrderCustomer { get; set; } = new OrderCustomerModel();
+    public OrderAddressModel OrderAddress { get; set; } = new OrderAddressModel();
+
+    public ICollection<OrderProductModel> OrderProducts { get; set; } = [];
 }
