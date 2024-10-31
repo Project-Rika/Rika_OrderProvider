@@ -18,6 +18,8 @@ var host = new HostBuilder()
         services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("RIKA_ORDER_DB")));
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<OrderRepository>();
+        services.AddScoped<OrderAddressRepository>();
+        services.AddScoped<OrderCustomerRepository>();
     })
     .Build();
 

@@ -5,7 +5,7 @@ namespace Rika_OrderProvider.Infrastructure.Data.Contexts;
 
 public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContext(options)
 {
-    public DbSet<OrderEntity> Order { get; set; }
+    public DbSet<OrderEntity> Orders { get; set; }
     public DbSet<OrderProductEntity> OrderProducts { get; set; }
     public DbSet<OrderCustomerEntity> OrderCustomers { get; set; }
     public DbSet<OrderAddressEntity> OrderAddresses { get; set; }
@@ -28,5 +28,8 @@ public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContex
             .HasMany(o => o.OrderProducts)
             .WithOne(p => p.Order)
             .HasForeignKey(p => p.OrderId);
+
+        modelBuilder.Entity<OrderProductEntity>()
+            .HasKey(op => new { op.OrderId, op.ProductId });
     }
 }

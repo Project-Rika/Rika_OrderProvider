@@ -5,6 +5,9 @@ namespace Rika_OrderProvider.Infrastructure.Models;
 public class OrderProductModel
 {
     [Required]
+    public string ProductId { get; set; } = null!;
+
+    [Required]
     public string ProductName { get; set; } = null!;
 
     [Required]

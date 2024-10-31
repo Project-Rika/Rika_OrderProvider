@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rika_OrderProvider.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using Rika_OrderProvider.Infrastructure.Data.Contexts;
 namespace Rika_OrderProvider.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    partial class OrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031150453_Update orderproduct")]
+    partial class Updateorderproduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,7 +111,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasIndex("OrderCustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderProductEntity", b =>

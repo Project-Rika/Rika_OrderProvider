@@ -17,8 +17,10 @@ public class OrderService_IntegrationTests
         _dbContext = new OrderDbContext(options);
 
         var orderRepository = new OrderRepository(_dbContext);
+        var orderAddressRepository = new OrderAddressRepository(_dbContext);
+        var orderCustomerRepository = new OrderCustomerRepository(_dbContext);
 
-        _orderService = new OrderService(orderRepository);
+        _orderService = new OrderService(orderRepository, orderAddressRepository, orderCustomerRepository);
 
         SeedDatabase();
 
@@ -68,7 +70,7 @@ public class OrderService_IntegrationTests
             OrderProducts = orderProducts
         };
 
-        _dbContext.Order.Add(order);
+        _dbContext.Orders.Add(order);
         _dbContext.SaveChangesAsync();
     }
 
