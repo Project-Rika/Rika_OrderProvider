@@ -10,6 +10,7 @@ public class OrderEntity
     public string TotalAmount { get; set; } = string.Empty;
     public string PaymnetMehod { get; set; } = string.Empty;
     public string ShipmentMethod { get; set; } = string.Empty;
+    public string OrderStatus { get; set;  } = "Pending";
 
     public string OrderCustomerId { get; set; } = null!;
     public OrderCustomerEntity OrderCustomer { get; set; } = null!;
