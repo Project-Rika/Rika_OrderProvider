@@ -30,6 +30,6 @@ public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContex
             .HasForeignKey(p => p.OrderId);
 
         modelBuilder.Entity<OrderProductEntity>()
-            .HasKey(op => new { op.OrderId, op.ProductId });
+            .HasKey(op => new { op.OrderId, op.ArticleNumber });
     }
 }

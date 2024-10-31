@@ -111,7 +111,7 @@ public class OrderService : IOrderService
     {
         var result = await _orderRepository.GetAllAsync();
 
-        return result.Count > 0 ? ResponseFactory.Ok(result) : ResponseFactory.NotFound();
+        return result.Count > 0 ? ResponseFactory.Ok(result.Select(OrderFactory.GetOrderModel).ToList()) : ResponseFactory.NotFound();
     }
 
     public Task<ResponseResult> GetOneOrderAsync(Guid orderId)

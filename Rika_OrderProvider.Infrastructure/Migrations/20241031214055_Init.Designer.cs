@@ -12,8 +12,8 @@ using Rika_OrderProvider.Infrastructure.Data.Contexts;
 namespace Rika_OrderProvider.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20241031150603_Update Order to Orders")]
-    partial class UpdateOrdertoOrders
+    [Migration("20241031214055_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,8 +75,11 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderEntity", b =>
                 {
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<string>("OrderAddressId")
                         .IsRequired()
@@ -93,7 +96,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PaymnetMehod")
+                    b.Property<string>("PaymentMehod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -116,10 +119,10 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderProductEntity", b =>
                 {
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("ArticleNumber")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Color")
@@ -142,7 +145,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderId", "ArticleNumber");
 
                     b.ToTable("OrderProducts");
                 });

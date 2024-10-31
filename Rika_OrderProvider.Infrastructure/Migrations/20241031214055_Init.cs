@@ -41,28 +41,30 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaymnetMehod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentMehod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShipmentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderCustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     OrderAddressId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Order_OrderAddresses_OrderAddressId",
+                        name: "FK_Orders_OrderAddresses_OrderAddressId",
                         column: x => x.OrderAddressId,
                         principalTable: "OrderAddresses",
                         principalColumn: "OrderAddressId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_OrderCustomers_OrderCustomerId",
+                        name: "FK_Orders_OrderCustomers_OrderCustomerId",
                         column: x => x.OrderCustomerId,
                         principalTable: "OrderCustomers",
                         principalColumn: "OrderCustomerId",
@@ -73,7 +75,8 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                 name: "OrderProducts",
                 columns: table => new
                 {
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UnitPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -82,23 +85,23 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProducts", x => x.ProductId);
+                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ArticleNumber });
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Order_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Order",
+                        name: "FK_OrderProducts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_OrderAddressId",
-                table: "Order",
+                name: "IX_Orders_OrderAddressId",
+                table: "Orders",
                 column: "OrderAddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_OrderCustomerId",
-                table: "Order",
+                name: "IX_Orders_OrderCustomerId",
+                table: "Orders",
                 column: "OrderCustomerId");
         }
 
@@ -109,7 +112,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                 name: "OrderProducts");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "OrderAddresses");

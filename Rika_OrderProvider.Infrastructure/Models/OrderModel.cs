@@ -11,7 +11,7 @@ public class OrderModel
     public string TotalAmount { get; set; } = null!;
 
     [Required]
-    public string PaymnetMehod { get; set; } = null!;
+    public string PaymentMethod { get; set; } = null!;
 
     [Required]
     public string ShipmentMethod { get; set; } = null!;

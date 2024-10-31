@@ -45,14 +45,14 @@ public class OrderService_IntegrationTests
         var orderProducts = new List<OrderProductEntity>
         {
             new() {
-                ProductId = "1",
+                ArticleNumber = "1",
                 ProductName = "Product 1",
                 UnitPrice = "50",
                 Quantity = "2"
             },
             new()
             {
-                ProductId = "2",
+                ArticleNumber = "2",
                 ProductName = "Product 1",
                 UnitPrice = "50",
                 Quantity = "2"
@@ -63,7 +63,7 @@ public class OrderService_IntegrationTests
         var order = new OrderEntity()
         {
             TotalAmount = "200",
-            PaymnetMehod = "Card",
+            PaymentMethod = "Card",
             ShipmentMethod = "Dbl",
             OrderCustomerId = orderCustomer.OrderCustomerId,
             OrderAddressId = orderAddress.OrderAddressId,
