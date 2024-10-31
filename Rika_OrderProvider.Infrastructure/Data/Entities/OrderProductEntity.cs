@@ -4,18 +4,18 @@ using System.Text.Json.Serialization;
 
 namespace Rika_OrderProvider.Infrastructure.Data.Entities;
 
+
 public class OrderProductEntity
 {
-    [Key]
-    public string ProductId { get; set; } = string.Empty;
-    public string ProductName { get; set; } = string.Empty;
-    public string UnitPrice { get; set; } = string.Empty;
-    public string Quantity { get; set; } = string.Empty;
-    public string Color { get; set; } = string.Empty;
-    public string Size { get; set; } = string.Empty;
+    public string ArticleNumber { get; set; } = null!;
+    public string ProductName { get; set; } = null!;
+    public string UnitPrice { get; set; } = null!;
+    public string Quantity { get; set; } = null!;
+    public string Color { get; set; } = null!;
+    public string Size { get; set; } = null!;
 
-    public string OrderId { get; set; } = null!;
-    [ForeignKey("OrderId")]
+    public int OrderId { get; set; }
+
     [JsonIgnore]
     public OrderEntity Order { get; set; } = null!;
 }

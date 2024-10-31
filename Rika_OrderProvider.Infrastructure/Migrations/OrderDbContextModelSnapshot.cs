@@ -45,7 +45,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasKey("OrderAddressId");
 
-                    b.ToTable("OrderAddresses", (string)null);
+                    b.ToTable("OrderAddresses");
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderCustomerEntity", b =>
@@ -67,13 +67,16 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasKey("OrderCustomerId");
 
-                    b.ToTable("OrderCustomers", (string)null);
+                    b.ToTable("OrderCustomers");
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderEntity", b =>
                 {
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<string>("OrderAddressId")
                         .IsRequired()
@@ -90,7 +93,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PaymnetMehod")
+                    b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -108,21 +111,20 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasIndex("OrderCustomerId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderProductEntity", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ArticleNumber")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -140,11 +142,9 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("OrderId", "ArticleNumber");
 
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderProducts", (string)null);
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderEntity", b =>

@@ -57,7 +57,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -112,7 +112,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -164,7 +164,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -217,7 +217,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -270,7 +270,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -339,7 +339,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -349,7 +349,7 @@ public class BaseRepositoryTests
         var updatedOrderEntity = new OrderEntity
         {
             TotalAmount = "200",
-            PaymnetMehod = "Credit Card",
+            PaymentMethod = "Credit Card",
             ShipmentMethod = "FedEx",
             OrderAddress = address,
             OrderProducts = products,
@@ -404,7 +404,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -414,7 +414,7 @@ public class BaseRepositoryTests
         var updatedOrderEntity = new OrderEntity
         {
             TotalAmount = "",
-            PaymnetMehod = "Credit Card",
+            PaymentMethod = "Credit Card",
             ShipmentMethod = "FedEx",
             OrderAddress = address,
             OrderProducts = products,
@@ -425,7 +425,7 @@ public class BaseRepositoryTests
         .ReturnsAsync((Expression<Func<OrderEntity, bool>> filter, OrderEntity entity) =>
         {
             if (string.IsNullOrEmpty(entity.TotalAmount) ||
-                string.IsNullOrEmpty(entity.PaymnetMehod) ||
+                string.IsNullOrEmpty(entity.PaymentMethod) ||
                 string.IsNullOrEmpty(entity.ShipmentMethod))
             {
                 return null!;
@@ -476,7 +476,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -528,7 +528,7 @@ public class BaseRepositoryTests
         var orderEntity = new OrderEntity
         {
             TotalAmount = "100",
-            PaymnetMehod = "Cash",
+            PaymentMethod = "Cash",
             ShipmentMethod = "UPS",
             OrderAddress = address,
             OrderProducts = products,
@@ -538,7 +538,7 @@ public class BaseRepositoryTests
         _mockRepository.Setup(x => x.DeleteAsync(x => x.OrderId == orderEntity.OrderId)).ReturnsAsync(true);
 
         // Act
-        var result = await _mockRepository.Object.DeleteAsync(x => x.OrderId == "");
+        var result = await _mockRepository.Object.DeleteAsync(x => x.OrderId == 0);
 
         // Assert
         Assert.False(result);

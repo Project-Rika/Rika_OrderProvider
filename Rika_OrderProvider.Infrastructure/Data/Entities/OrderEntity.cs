@@ -6,11 +6,11 @@ namespace Rika_OrderProvider.Infrastructure.Data.Entities;
 public class OrderEntity
 {
     [Key]
-    public string OrderId { get; set; } = Guid.NewGuid().ToString();
+    public int OrderId { get; set; }
     public DateTime OrderDate { get; set; } = DateTime.Now;
-    public string TotalAmount { get; set; } = string.Empty;
-    public string PaymnetMehod { get; set; } = string.Empty;
-    public string ShipmentMethod { get; set; } = string.Empty;
+    public string TotalAmount { get; set; } = null!;
+    public string PaymentMethod { get; set; } = null!;
+    public string ShipmentMethod { get; set; } = null!;
     public string OrderStatus { get; set;  } = "Pending";
 
     public string OrderCustomerId { get; set; } = null!;

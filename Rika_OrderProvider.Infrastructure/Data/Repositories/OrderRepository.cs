@@ -13,7 +13,7 @@ public class OrderRepository(OrderDbContext dbContext) : BaseRepository<OrderEnt
     {
         try
         {
-            var orders = await _dbContext.Order
+            var orders = await _dbContext.Orders
                  .Include(x => x.OrderCustomer)
                  .Include(x => x.OrderAddress)
                  .Include(x => x.OrderProducts)

@@ -17,8 +17,10 @@ public class OrderService_IntegrationTests
         _dbContext = new OrderDbContext(options);
 
         var orderRepository = new OrderRepository(_dbContext);
+        var orderAddressRepository = new OrderAddressRepository(_dbContext);
+        var orderCustomerRepository = new OrderCustomerRepository(_dbContext);
 
-        _orderService = new OrderService(orderRepository);
+        _orderService = new OrderService(orderRepository, orderAddressRepository, orderCustomerRepository);
 
         SeedDatabase();
 
@@ -43,14 +45,14 @@ public class OrderService_IntegrationTests
         var orderProducts = new List<OrderProductEntity>
         {
             new() {
-                ProductId = "1",
+                ArticleNumber = "1",
                 ProductName = "Product 1",
                 UnitPrice = "50",
                 Quantity = "2"
             },
             new()
             {
-                ProductId = "2",
+                ArticleNumber = "2",
                 ProductName = "Product 1",
                 UnitPrice = "50",
                 Quantity = "2"
@@ -61,14 +63,14 @@ public class OrderService_IntegrationTests
         var order = new OrderEntity()
         {
             TotalAmount = "200",
-            PaymnetMehod = "Card",
+            PaymentMethod = "Card",
             ShipmentMethod = "Dbl",
             OrderCustomerId = orderCustomer.OrderCustomerId,
             OrderAddressId = orderAddress.OrderAddressId,
             OrderProducts = orderProducts
         };
 
-        _dbContext.Order.Add(order);
+        _dbContext.Orders.Add(order);
         _dbContext.SaveChangesAsync();
     }
 
