@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Rika_OrderProvider.Infrastructure.Data.Entities;
 
@@ -10,5 +11,7 @@ public class OrderAddressEntity
     public string City { get; set; } = string.Empty;
     public string PostalCode { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
+
+    [JsonIgnore]
     public ICollection<OrderEntity> Orders { get; set; } = [];
 }

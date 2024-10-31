@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Rika_OrderProvider.Infrastructure.Data.Entities;
 
@@ -15,5 +16,6 @@ public class OrderProductEntity
 
     public string OrderId { get; set; } = null!;
     [ForeignKey("OrderId")]
+    [JsonIgnore]
     public OrderEntity Order { get; set; } = null!;
 }

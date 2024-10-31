@@ -45,7 +45,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasKey("OrderAddressId");
 
-                    b.ToTable("OrderAddresses");
+                    b.ToTable("OrderAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderCustomerEntity", b =>
@@ -67,7 +67,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasKey("OrderCustomerId");
 
-                    b.ToTable("OrderCustomers");
+                    b.ToTable("OrderCustomers", (string)null);
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderEntity", b =>
@@ -108,7 +108,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasIndex("OrderCustomerId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderProductEntity", b =>
@@ -144,7 +144,7 @@ namespace Rika_OrderProvider.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderProducts");
+                    b.ToTable("OrderProducts", (string)null);
                 });
 
             modelBuilder.Entity("Rika_OrderProvider.Infrastructure.Data.Entities.OrderEntity", b =>
