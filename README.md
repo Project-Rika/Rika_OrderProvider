@@ -1,41 +1,78 @@
-# Rika_OrderProvider
+# API Dokumentation
 
-###Exempel på ett JSON-objekt och vilka parametrar som ska finnas
+## Skapa Order (`CreateOrder`)
+
+**Endpoint:** `/api/orders/create`  
+**Metod:** `POST`
+
+### Request Body
 
 ```json
 {
-  "TotalAmount": 499.99,
-  "PaymentMethod": "CreditCard",
-  "ShipmentMethod": "Express",
-  "OrderCustomer": {
-    "Name": "John Doe",
-    "Email": "john.doe@example.com",
-    "Phone": "+1234567890"
-  },
-  "OrderAddress": {
-    "Street": "vägvägen 1",
-    "City": "Stockholm",
-    "PostalCode": "12345",
-    "Country": "Sweden"
-  },
-  "OrderProducts": [
-    {
-      "ProductID": "001",
-      "ProductName": "Jacket",
-      "Quantity": 1,
-      "Price": 399.99
+    "totalAmount": "string",
+    "paymentMethod": "string",
+    "shipmentMethod": "string",
+    "orderCustomer": {
+        "customerName": "string",
+        "customerEmail": "string",
+        "customerPhone": "string"
     },
-    {
-      "ProductID": "002",
-      "ProductName": "Shoes",
-      "Quantity": 1,
-      "Price": 29.99
+    "orderAddress": {
+        "address": "string",
+        "city": "string",
+        "postalCode": "string",
+        "country": "string"
     },
-    {
-      "ProductID": "003",
-      "ProductName": "Sweater",
-      "Quantity": 1,
-      "Price": 69.99
-    }
-  ]
+    "orderProducts": [
+        {
+            "articleNumber": "string",
+            "productName": "string",
+            "unitPrice": "string",
+            "quantity": "string",
+            "color": "string",
+            "size": "string"
+        }
+    ]
 }
+
+````
+
+## Hämta Alla Orders (`GetAllOrders`)
+
+**Endpoint:** `/api/orders/getallorders`  
+**Metod:** `GET`
+
+### Request Body
+
+```json
+[
+    {
+        "orderId": "int",
+        "orderDate": "datetime",
+        "totalAmount": "string",
+        "paymentMethod": "string",
+        "shipmentMethod": "string",
+        "orderStatus": "string",
+        "orderCustomer": {
+            "customerName": "string",
+            "customerEmail": "string",
+            "customerPhone": "string"
+        },
+        "orderAddress": {
+            "address": "string",
+            "city": "string",
+            "postalCode": "string",
+            "country": "string"
+        },
+        "orderProducts": [
+            {
+                "articleNumber": "string",
+                "productName": "string",
+                "unitPrice": "string",
+                "quantity": "string",
+                "color": "string",
+                "size": "string"
+            }
+        ]
+    }
+]
