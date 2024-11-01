@@ -13,4 +13,5 @@ public class OrderCustomerModel
 
     [Required]
     public string CustomerPhone { get; set; } = null!;
+
 }
