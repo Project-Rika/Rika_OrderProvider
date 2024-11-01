@@ -19,7 +19,7 @@ namespace Rika_OrderProvider.Functions
         }
 
         [Function("GetAllOrders")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {
             try
             {
