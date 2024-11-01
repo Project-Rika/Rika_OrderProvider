@@ -59,7 +59,8 @@ public class OrderService : IOrderService
             }
             else
             {
-                var createdOrderAddress = await _orderAddressRepository.CreateAsync(new OrderAddressEntity { Address = address, City = city, PostalCode = postalCode, Country = country });
+                var addressTest = new OrderAddressEntity { Address = address, City = city, PostalCode = postalCode, Country = country };
+                var createdOrderAddress = await _orderAddressRepository.CreateAsync(addressTest);
                 if (createdOrderAddress != null)
                 {
                     return createdOrderAddress.OrderAddressId;
