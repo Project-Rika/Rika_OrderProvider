@@ -15,30 +15,32 @@ public class OrderService : IOrderService
     private readonly OrderRepository _orderRepository;
     private readonly OrderAddressRepository _orderAddressRepository;
     private readonly OrderCustomerRepository _orderCustomerRepository;
-    public OrderService(OrderRepository orderRepository, OrderAddressRepository orderAddressRepository, OrderCustomerRepository orderCustomerRepository)
+    private readonly OrderProductRepository _orderProductRepository;
+    public OrderService(OrderRepository orderRepository, OrderAddressRepository orderAddressRepository, OrderCustomerRepository orderCustomerRepository, OrderProductRepository orderProductRepository)
     {
         _orderRepository = orderRepository;
         _orderAddressRepository = orderAddressRepository;
         _orderCustomerRepository = orderCustomerRepository;
+        _orderProductRepository = orderProductRepository;
     }
 
     public async Task<ResponseResult> CreateOrderAsync(OrderModel orderModel)
     {
         try
         {
-            var orderAddressId = await GetOrCreateOrderAddress(orderModel.OrderAddress.Address, orderModel.OrderAddress.City, orderModel.OrderAddress.PostalCode, orderModel.OrderAddress.Country);
+            var orderAddressId = await GetOrCreateOrderAddressAsync(orderModel.OrderAddress.Address, orderModel.OrderAddress.City, orderModel.OrderAddress.PostalCode, orderModel.OrderAddress.Country);
             if (orderAddressId == null)
             {
                 return ResponseFactory.Error("Error creating order address");
             }
 
-            var orderCustomerId = await GetOrCreateOrderCustomer(orderModel.OrderCustomer.CustomerName, orderModel.OrderCustomer.CustomerEmail, orderModel.OrderCustomer.CustomerPhone);
+            var orderCustomerId = await GetOrCreateOrderCustomerAsync(orderModel.OrderCustomer.CustomerName, orderModel.OrderCustomer.CustomerEmail, orderModel.OrderCustomer.CustomerPhone);
             if (orderCustomerId == null)
             {
                 return ResponseFactory.Error("Error creating order customer");
             }
 
-            var createdOrder = await _orderRepository.CreateAsync(OrderFactory.CreateOrderEntity(orderModel, orderAddressId, orderCustomerId));
+            var createdOrder = await _orderRepository.CreateAsync(OrderFactory.CreateOrder(orderModel, orderAddressId, orderCustomerId));
             return createdOrder != null ? ResponseFactory.Ok(createdOrder) : ResponseFactory.Error("Error creating order");
         }
         catch (Exception ex)
@@ -48,7 +50,7 @@ public class OrderService : IOrderService
         }
     }
 
-    private async Task<string> GetOrCreateOrderAddress(string address, string city, string postalCode, string country) 
+    private async Task<string> GetOrCreateOrderAddressAsync(string address, string city, string postalCode, string country) 
     {
         try
         {
@@ -76,7 +78,7 @@ public class OrderService : IOrderService
 
     }
 
-    private async Task<string> GetOrCreateOrderCustomer(string name, string email, string phone)
+    private async Task<string> GetOrCreateOrderCustomerAsync(string name, string email, string phone)
     {
         try
         {
@@ -103,7 +105,7 @@ public class OrderService : IOrderService
 
     }
 
-    public Task<ResponseResult> DeleteOrderAsync(Guid orderId)
+    public Task<ResponseResult> DeleteOrderAsync(int orderId)
     {
         throw new NotImplementedException();
     }
@@ -111,17 +113,35 @@ public class OrderService : IOrderService
     public async Task<ResponseResult> GetAllOrdersAsync()
     {
         var result = await _orderRepository.GetAllAsync();
-
         return result.Count > 0 ? ResponseFactory.Ok(result.Select(OrderFactory.GetOrderModel).ToList()) : ResponseFactory.NotFound();
     }
 
-    public Task<ResponseResult> GetOneOrderAsync(Guid orderId)
+    public async Task<ResponseResult> GetOneOrderAsync(int orderId)
     {
-        throw new NotImplementedException();
+        var existingOrder = await _orderRepository.GetOneAsync(x => x.OrderId == orderId);
+        return existingOrder != null ? ResponseFactory.Ok(existingOrder) : ResponseFactory.NotFound();
     }
 
-    public Task<ResponseResult> UpdateOrderAsync(Guid orderId, OrderModel orderModel)
+    public async Task<ResponseResult> UpdateOrderAsync(UpdateOrderModel orderModel)
     {
-        throw new NotImplementedException();
+        var existingOrder = await _orderRepository.GetOneAsync(x => x.OrderId == orderModel.OrderId);
+        if (existingOrder == null)
+        {
+            return ResponseFactory.NotFound();
+        }
+        var orderAddressId = GetOrCreateOrderAddressAsync(orderModel.OrderAddress.Address, orderModel.OrderAddress.City, orderModel.OrderAddress.PostalCode, orderModel.OrderAddress.Country);
+        if (orderAddressId == null)
+        {
+            return ResponseFactory.Error("Error creating order address");
+        }
+        var orderCustomerId = GetOrCreateOrderCustomerAsync(orderModel.OrderCustomer.CustomerName, orderModel.OrderCustomer.CustomerEmail, orderModel.OrderCustomer.CustomerPhone);
+        if (orderCustomerId == null)
+        {
+            return ResponseFactory.Error("Error creating order customer");
+        }
+        var updatedOrder = OrderFactory.UpdateOrder(existingOrder, orderModel, await orderAddressId, await orderCustomerId);
+        var result =  await _orderRepository.UpdateAsync(x => x.OrderId == existingOrder.OrderId, updatedOrder);
+        return result != null ? ResponseFactory.Ok(result) : ResponseFactory.Error("Error updating order");
     }
+
 }

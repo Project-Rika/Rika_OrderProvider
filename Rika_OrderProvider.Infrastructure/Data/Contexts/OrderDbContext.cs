@@ -17,17 +17,21 @@ public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContex
         modelBuilder.Entity<OrderEntity>()
             .HasOne(o => o.OrderCustomer)
             .WithMany(c => c.Orders)
-            .HasForeignKey(o => o.OrderCustomerId);
+            .HasForeignKey(o => o.OrderCustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
 
         modelBuilder.Entity<OrderEntity>()
             .HasOne(o => o.OrderAddress)
             .WithMany(a => a.Orders)
-            .HasForeignKey(o => o.OrderAddressId);
+            .HasForeignKey(o => o.OrderAddressId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<OrderEntity>()
             .HasMany(o => o.OrderProducts)
             .WithOne(p => p.Order)
-            .HasForeignKey(p => p.OrderId);
+            .HasForeignKey(p => p.OrderId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<OrderProductEntity>()
             .HasKey(op => new { op.OrderId, op.ArticleNumber });

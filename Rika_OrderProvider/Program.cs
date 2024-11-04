@@ -20,6 +20,7 @@ var host = new HostBuilder()
         services.AddScoped<OrderRepository>();
         services.AddScoped<OrderAddressRepository>();
         services.AddScoped<OrderCustomerRepository>();
+        services.AddScoped<OrderProductRepository>();
     })
     .Build();
 
