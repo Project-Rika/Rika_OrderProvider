@@ -61,21 +61,18 @@ public class OrderService : IOrderService
             }
             else
             {
-                var addressTest = new OrderAddressEntity { Address = address, City = city, PostalCode = postalCode, Country = country };
-                var createdOrderAddress = await _orderAddressRepository.CreateAsync(addressTest);
+                var createdOrderAddress = await _orderAddressRepository.CreateAsync(new OrderAddressEntity { Address = address, City = city, PostalCode = postalCode, Country = country});
                 if (createdOrderAddress != null)
                 {
                     return createdOrderAddress.OrderAddressId;
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Debug.WriteLine(ex.Message);
         }
         return null!;
-
     }
 
     private async Task<string> GetOrCreateOrderCustomerAsync(string name, string email, string phone)
@@ -96,13 +93,11 @@ public class OrderService : IOrderService
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Debug.WriteLine(ex.Message);
         }
         return null!;
-
     }
 
     public Task<ResponseResult> DeleteOrderAsync(int orderId)
@@ -113,13 +108,13 @@ public class OrderService : IOrderService
     public async Task<ResponseResult> GetAllOrdersAsync()
     {
         var result = await _orderRepository.GetAllAsync();
-        return result.Count > 0 ? ResponseFactory.Ok(result.Select(OrderFactory.GetOrderModel).ToList()) : ResponseFactory.NotFound();
+        return result.Count > 0 ? ResponseFactory.Ok(result.Select(OrderFactory.GetOrder).ToList()) : ResponseFactory.NotFound();
     }
 
     public async Task<ResponseResult> GetOneOrderAsync(int orderId)
     {
         var existingOrder = await _orderRepository.GetOneAsync(x => x.OrderId == orderId);
-        return existingOrder != null ? ResponseFactory.Ok(existingOrder) : ResponseFactory.NotFound();
+        return existingOrder != null ? ResponseFactory.Ok(OrderFactory.GetOrder(existingOrder)) : ResponseFactory.NotFound();
     }
 
     public async Task<ResponseResult> UpdateOrderAsync(UpdateOrderModel orderModel)

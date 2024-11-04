@@ -33,7 +33,6 @@ public static class OrderFactory
         };
     }
 
-
     public static OrderEntity UpdateOrder(OrderEntity existingOrder, UpdateOrderModel orderModel, string orderAddressId, string orderCustomerId)
     {
         existingOrder.TotalAmount = orderModel.TotalAmount;
@@ -42,7 +41,6 @@ public static class OrderFactory
         existingOrder.OrderStatus = orderModel.OrderStatus;
         existingOrder.OrderAddressId = orderAddressId;
         existingOrder.OrderCustomerId = orderCustomerId;
-
 
         var productsToRemove = existingOrder.OrderProducts.Where(existingProduct => !orderModel.OrderProducts.Any(p => p.ArticleNumber == existingProduct.ArticleNumber)).ToList();
         foreach (var productToRemove in productsToRemove)
@@ -75,13 +73,10 @@ public static class OrderFactory
                 });
             }
         }
-
         return existingOrder;
     }
 
-
-
-    public static GetOrderModel GetOrderModel(OrderEntity orderEntity)
+    public static GetOrderModel GetOrder(OrderEntity orderEntity)
     {
         return new GetOrderModel
         {
@@ -110,9 +105,11 @@ public static class OrderFactory
                 ProductName = op.ProductName,
                 UnitPrice = op.UnitPrice,
                 Quantity = op.Quantity,
-                Color = op.Color,
-                Size = op.Size,
+                Color = op.Color ?? "",
+                Size = op.Size ?? "",
             }).ToList()
         };
     }
+
+  
 }
