@@ -100,9 +100,10 @@ public class OrderService : IOrderService
         return null!;
     }
 
-    public Task<ResponseResult> DeleteOrderAsync(int orderId)
+    public async Task<ResponseResult> DeleteOrderAsync(int orderId)
     {
-        throw new NotImplementedException();
+        var deletedOrder = await _orderRepository.DeleteAsync(x => x.OrderId == orderId);
+        return deletedOrder ? ResponseFactory.Ok() : ResponseFactory.NotFound(); 
     }
 
     public async Task<ResponseResult> GetAllOrdersAsync()
