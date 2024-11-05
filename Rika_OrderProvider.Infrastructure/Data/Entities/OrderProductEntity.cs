@@ -11,8 +11,8 @@ public class OrderProductEntity
     public string ProductName { get; set; } = null!;
     public string UnitPrice { get; set; } = null!;
     public string Quantity { get; set; } = null!;
-    public string Color { get; set; } = null!;
-    public string Size { get; set; } = null!;
+    public string? Color { get; set; }
+    public string? Size { get; set; }
 
     public int OrderId { get; set; }
 

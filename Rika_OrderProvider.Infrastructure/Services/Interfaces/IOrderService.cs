@@ -7,9 +7,10 @@ namespace Rika_OrderProvider.Infrastructure.Services.Interfaces;
 public interface IOrderService
 {
     Task<ResponseResult> CreateOrderAsync (OrderModel orderModel);
-    Task<ResponseResult> GetOneOrderAsync(Guid orderId);
+    Task<ResponseResult> GetOneOrderAsync(int orderId);
     Task<ResponseResult> GetAllOrdersAsync();
-    Task<ResponseResult> UpdateOrderAsync(Guid orderId, OrderModel orderModel);
-    Task<ResponseResult> DeleteOrderAsync(Guid orderId);
+    Task<ResponseResult> UpdateOrderAsync(UpdateOrderModel orderModel);
+    Task<ResponseResult> DeleteOrderAsync(int orderId);
+
 
 }

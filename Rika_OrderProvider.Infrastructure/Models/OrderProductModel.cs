@@ -16,9 +16,8 @@ public class OrderProductModel
     [Required]
     public string Quantity { get; set; } = null!;
 
-    [Required]
-    public string Color { get; set; } = null!;
+    public string? Color { get; set; }
 
-    [Required]
-    public string Size { get; set; } = null!;
+  
+    public string? Size { get; set; }
 }
