@@ -31,7 +31,7 @@ public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContex
             .HasMany(o => o.OrderProducts)
             .WithOne(p => p.Order)
             .HasForeignKey(p => p.OrderId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<OrderProductEntity>()
             .HasKey(op => new { op.OrderId, op.ArticleNumber });
