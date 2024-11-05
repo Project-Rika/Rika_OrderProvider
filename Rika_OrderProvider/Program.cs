@@ -15,7 +15,7 @@ var host = new HostBuilder()
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
 
-        services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("RIKA_ORDER_DB")));
+        services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("RIKA_ORDER_DB")), ServiceLifetime.Transient);
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<OrderRepository>();
         services.AddScoped<OrderAddressRepository>();
