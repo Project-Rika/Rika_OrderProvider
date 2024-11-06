@@ -182,6 +182,32 @@ public class OrderService_IntegrationTests
         Assert.Equal("ERROR", result.StatusCode.ToString());
     }
 
+    [Fact]
+    public async Task GetOneOrderById_ShouldReturnOrder()
+    {
+        // Arrange
+
+        // Act  
+        var result = await _orderService.GetOneOrderAsync(1);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("OK", result.StatusCode.ToString());
+    }
+
+    [Fact]
+    public async Task GetOneOrderByWrongId_ShouldNotReturnOrder()
+    {
+        // Arrange
+        //Set an id that does not exist
+
+        // Act  
+        var result = await _orderService.GetOneOrderAsync(100);
+
+        // Assert
+        Assert.Equal("Not found", result.Message);
+
+    }
 
     [Fact]
     public async Task GetAllOrders_ShouldReturnOrders_InList()
@@ -284,15 +310,28 @@ public class OrderService_IntegrationTests
     }
 
     [Fact]
-    public async Task GetOneOrderById_ShouldReturnOrder()
+    public async Task DeleteOneOrderById_ShouldReturnOK()
     {
         // Arrange
+        var existingOrder = await _dbContext.Orders.FirstOrDefaultAsync();
 
         // Act  
-        var result = await _orderService.GetOneOrderAsync(1);
+        var result = await _orderService.DeleteOrderAsync(existingOrder!.OrderId);
 
         // Assert
-        Assert.NotNull(result);
+        Assert.Equal("OK", result.StatusCode.ToString());
+    }
+
+    [Fact]
+    public async Task DeleteOneOrderByWrongId_ShouldReturnNot_Found()
+    {
+        // Arrange
+        //Set non existent ID
+        // Act  
+        var result = await _orderService.DeleteOrderAsync(100);
+
+        // Assert
+        Assert.Equal("NOT_FOUND", result.StatusCode.ToString());
     }
 }
 
